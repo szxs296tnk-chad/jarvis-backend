@@ -45,23 +45,38 @@ def health():
 async def command(request: Request):
     try:
         data = await request.json()
-        texto = data.get("input", "").lower()
+        texto = data.get("input", "").lower().strip()
 
-        # 🧠 Lógica SIMPLE pero estable
+        if not texto:
+            return {"respuesta": "No recibí comando"}
+
+        # 🔥 comandos directos
+        if "hora" in texto:
+            hora = time.strftime("%H:%M")
+            return {"respuesta": f"Son las {hora}"}
+
+        if "hola" in texto or "jarvis" in texto:
+            return {"respuesta": "Estoy en línea"}
+
+        # 🔥 acciones básicas simuladas
+        if "youtube" in texto:
+            return {"respuesta": "Abriendo YouTube"}
+
+        if "spotify" in texto:
+            return {"respuesta": "Abriendo Spotify"}
+
         if "agua" in texto:
-            respuesta = "Recuerda tomar agua"
-        elif "noche" in texto:
-            respuesta = "Buenas noches, activando rutina"
-        elif "hola" in texto:
-            respuesta = "Hola, estoy en línea"
-        else:
-            respuesta = "No entendí el comando, intenta otra vez"
+            return {"respuesta": "Recuerda tomar agua"}
 
-        return {"respuesta": respuesta}
+        if "noche" in texto:
+            return {"respuesta": "Buenas noches, activando rutina"}
+
+        # fallback
+        return {"respuesta": "No entendí el comando"}
 
     except Exception as e:
         logging.error(f"Error en /command: {e}")
         return JSONResponse(
             status_code=200,
-            content={"respuesta": "Hubo un error, pero sigo activo"}
+            content={"respuesta": "Error controlado"}
         )
