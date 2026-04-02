@@ -48,10 +48,14 @@ def health():
 async def command(request: Request):
     try:
         data = await request.json()
-        texto = data.get("input", "").lower().strip()
+        texto = data.get("input", "")
+
+        texto = limpiar_texto(texto)
 
         if not texto:
             return {"respuesta": "No recibí comando"}
+
+        logging.info(f"COMANDO: {texto}")
 
         # 🔥 comandos directos
         if "hora" in texto:
@@ -61,21 +65,38 @@ async def command(request: Request):
         if "hola" in texto or "jarvis" in texto:
             return {"respuesta": "Estoy en línea"}
 
-        # 🔥 acciones básicas simuladas
-        if "youtube" in texto:
-            return {"respuesta": "Abriendo YouTube"}
+        # 🔥 detección rápida de acciones
+        accion = None
 
         if "spotify" in texto:
-            return {"respuesta": "Abriendo Spotify"}
+            accion = "abrir_spotify"
+        elif "youtube" in texto or "yt" in texto:
+            accion = "abrir_youtube"
+        elif "netflix" in texto:
+            accion = "abrir_netflix"
+        elif "navegador" in texto or "google" in texto:
+            accion = "abrir_navegador"
+        elif "calculadora" in texto:
+            accion = "abrir_calculadora"
+        elif "notas" in texto:
+            accion = "abrir_notas"
+        elif "captura" in texto:
+            accion = "captura_pantalla"
 
-        if "agua" in texto:
-            return {"respuesta": "Recuerda tomar agua"}
+        if accion:
+            resultado = ejecutar(accion)
+            return {"respuesta": resultado}
 
-        if "noche" in texto:
-            return {"respuesta": "Buenas noches, activando rutina"}
+        # 🔥 IA (cerebro real)
+        respuesta = pensar(texto)
 
-        # fallback
-        return {"respuesta": "No entendí el comando"}
+        # si la IA devuelve acción
+        if respuesta.startswith("ACCION:"):
+            accion = respuesta.replace("ACCION:", "").strip()
+            resultado = ejecutar(accion)
+            return {"respuesta": resultado}
+
+        return {"respuesta": respuesta}
 
     except Exception as e:
         logging.error(f"Error en /command: {e}")
