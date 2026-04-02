@@ -2,6 +2,9 @@ from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 import time
 import logging
+from brain import pensar
+from acciones import ejecutar
+from utils import limpiar_texto
 
 app = FastAPI()
 
