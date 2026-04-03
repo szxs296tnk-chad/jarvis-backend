@@ -3,7 +3,8 @@ import webbrowser
 import logging
 from datetime import datetime
 
-from config import CONFIG
+from core.config import CONFIG
+from utils.utils import *
 
 # ─────────────────────────────
 # LOGGING

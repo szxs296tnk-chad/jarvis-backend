@@ -1,10 +1,15 @@
+import sys
+import os
+
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 import time
 import logging
-from brain import pensar
-from acciones import ejecutar
-from utils import limpiar_texto
+from core.brain import pensar
+from executor.acciones import ejecutar
+from utils.utils import limpiar_texto
 
 app = FastAPI()
 

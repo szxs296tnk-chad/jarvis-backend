@@ -1,14 +1,18 @@
+
 import requests
+from core.config import CONFIG
+from executor.acciones import ejecutar
+from utils.utils import limpiar_texto
 
 # ─────────────────────────────
 # CONFIG
 # ─────────────────────────────
 
 OLLAMA_URL = "http://localhost:11434/api/generate"
-MODELO = "llama3"
+MODELO = "phi3"
 
 # Timeout más realista
-TIMEOUT = 10
+TIMEOUT = 120
 
 # ─────────────────────────────
 # PENSAR
