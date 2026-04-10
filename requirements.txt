@@ -1,7 +1,8 @@
 fastapi
-uvicorn
+uvicorn[standard]
+httpx
 requests
-numpy
-sounddevice
-faster-whisper
-schedule
+pydantic
+python-dotenv
+anthropic
+openai
