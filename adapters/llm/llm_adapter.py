@@ -11,7 +11,7 @@ import logging
 from typing import Optional
 
 from core.config import Config
-from ai.selector import select_provider
+from ia.selector import select_provider
 
 logger = logging.getLogger("chad.adapters.llm")
 
