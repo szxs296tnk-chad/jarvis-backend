@@ -8,7 +8,7 @@ from core.context.context_manager import ContextManager
 from core.contracts.intents import PC_INTENTS, detect_intent, extract_data
 from core.brain.decision_engine import Decision, parse_llm_response
 from core.brain.response_builder import build_system_prompt, build_messages
-from ai.selector import select_provider
+from ia.selector import select_provider
 
 logger = logging.getLogger("chad.orchestrator")
 
