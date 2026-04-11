@@ -26,7 +26,7 @@ async def process_doc(content: str, task: str = "summarize", lang: str = "es") -
     logger.info(f"Processing document | task={task} | chars={len(content)}")
 
     from core.config import Config
-    from ai.selector import select_provider
+    from ia.selector import select_provider
     from core.brain.response_builder import build_messages
 
     config = Config.load()
